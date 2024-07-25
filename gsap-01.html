@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GSAP 01</title>
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/gsap-01.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <section id="section1" class="parallex-item">
+        <span class="parallex-item-num">01</span>
+        <div class="parallex-item-img"></div>
+      </section>
+      <section id="section2" class="parallex-item">
+        <span class="parallex-item-num">02</span>
+        <div class="parallex-item-img"></div>
+      </section>
+      <section id="section3" class="parallex-item">
+        <span class="parallex-item-num">03</span>
+        <div class="parallex-item-img"></div>
+      </section>
+      <section id="section4" class="parallex-item">
+        <span class="parallex-item-num">04</span>
+        <div class="parallex-item-img"></div>
+      </section>
+      <section id="section5" class="parallex-item">
+        <span class="parallex-item-num">05</span>
+        <div class="parallex-item-img"></div>
+      </section>
+      <section id="section6" class="parallex-item">
+        <span class="parallex-item-num">06</span>
+        <div class="parallex-item-img"></div>
+      </section>
+      <section id="section7" class="parallex-item">
+        <span class="parallex-item-num">07</span>
+        <div class="parallex-item-img"></div>
+      </section>
+      <section id="section8" class="parallex-item">
+        <span class="parallex-item-num">08</span>
+        <div class="parallex-item-img"></div>
+      </section>
+      <section id="section9" class="parallex-item">
+        <span class="parallex-item-num">09</span>
+        <div class="parallex-item-img"></div>
+      </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
+    <script>
+      const img1 = document.querySelector("#section1 .parallex-item-img");
+      const img2 = document.querySelector("#section2 .parallex-item-img");
+      const img3 = document.querySelector("#section3 .parallex-item-img");
+      const img4 = document.querySelector("#section4 .parallex-item-img");
+      const img5 = document.querySelector("#section5 .parallex-item-img");
+      const img6 = document.querySelector("#section6 .parallex-item-img");
+      const img7 = document.querySelector("#section7 .parallex-item-img");
+      const img8 = document.querySelector("#section8 .parallex-item-img");
+
+      // section1
+      gsap.to(img1, {
+        delay: 1,
+        duration: 2,
+        x: 500,
+        borderRadius: 100,
+        rotation: 360,
+      });
+
+      // section2
+      gsap.to(img2, {
+        duration: 2,
+        x: 500,
+        borderRadius: 100,
+        rotation: 360,
+        scrollTrigger: {
+          trigger: img2,
+        },
+      });
+
+      // section3
+      gsap.to(img3, {
+        duration: 2,
+        x: 500,
+        borderRadius: 100,
+        rotation: 360,
+        scrollTrigger: {
+          trigger: img3,
+          toggleActions: "play none reverse none",
+        },
+      });
+
+      // section4
+      gsap.to(img4, {
+        duration: 2,
+        x: 500,
+        borderRadius: 100,
+        rotation: 360,
+        scrollTrigger: {
+          trigger: img4,
+          toggleActions: "play none reverse none",
+          start: "top 50%",
+          end: "bottom 20%",
+        },
+      });
+
+      // section5
+      gsap.to(img5, {
+        duration: 2,
+        x: 500,
+        borderRadius: 100,
+        rotation: 360,
+
+        scrollTrigger: {
+          trigger: img5,
+          toggleActions: "play none reverse none",
+          start: "top 50%",
+          end: "bottom 30%",
+          scrub: true, // 스크롤과 동기화
+        },
+      });
+
+      // section6
+      gsap.to(img6, {
+        duration: 2,
+        x: 500,
+        borderRadius: 100,
+        rotation: 360,
+
+        scrollTrigger: {
+          trigger: img6,
+          toggleActions: "play none reverse none",
+          start: "top 50%",
+          end: "bottom 30%",
+          scrub: true, // 스크롤과 동기화
+          pin: true, // 요소 고정
+        },
+      });
+
+      // section7
+      gsap.to(img7, {
+        duration: 2,
+        x: 500,
+        borderRadius: 100,
+        rotation: 360,
+
+        scrollTrigger: {
+          trigger: img7,
+          toggleActions: "play none reverse none",
+          start: "top 50%",
+          end: "bottom 30%",
+          scrub: true, // 스크롤과 동기화
+          pin: true, // 요소 고정
+          id: "img7", // scrollTrigger의 ID 설정
+        },
+      });
+
+      // section8
+      gsap.to(img8, {
+        duration: 2,
+        x: 500,
+        borderRadius: 100,
+        rotation: 360,
+
+        scrollTrigger: {
+          trigger: img8,
+          toggleActions: "play none reverse none",
+          start: "top 50%",
+          end: "bottom 20%",
+          scrub: true, // 스크롤과 동기화
+          onUpdate: (self) => {
+            console.log("onUpdate", self.progress.toFixed(3));
+          },
+          onToggle: (self) => {
+            console.log("onToggle", self.isActive);
+          },
+          // onEnter: () => {console.log("onEnter")},
+          // onLeave: () => {console.log("onLeave")},
+          // onEnterBack: () => {console.log("onEnterBack")},
+          // onLeaveBack: () => {console.log("onLeaveBack")},
+        },
+      });
+    </script>
+  </body>
+</html>
