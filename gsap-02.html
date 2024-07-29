@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GSAP-02 Pin 애니메이션</title>
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/gsap-02.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <!-- section 01 -->
+      <section id="section01" class="parallex-item">
+        <span class="parallex-item-num">01</span>
+        <div class="parallex-item-img"></div>
+      </section>
+      <!-- section 02 -->
+      <section id="section02" class="parallex-item">
+        <span class="parallex-item-num">02</span>
+        <div class="parallex-item-img img1"></div>
+        <div class="parallex-item-img img2"></div>
+        <div class="parallex-item-img img3"></div>
+      </section>
+      <!-- section 03 -->
+      <section id="section03" class="parallex-item">
+        <span class="parallex-item-num">03</span>
+        <div class="parallex-item-img"></div>
+        <div class="parallex-item-img"></div>
+        <div class="parallex-item-img"></div>
+        <div class="parallex-item-img"></div>
+        <div class="parallex-item-img"></div>
+        <div class="parallex-item-img"></div>
+      </section>
+      <!-- section 04 -->
+      <section id="section04" class="parallex-item">
+        <span class="parallex-item-num">04</span>
+        <div class="parallex-item-img"></div>
+      </section>
+      <!-- section 05 -->
+      <section id="section05" class="parallex-item">
+        <span class="parallex-item-num">05</span>
+        <div class="parallex-item-text text1">SECTION05</div>
+        <div class="parallex-item-text text2">SECTION05</div>
+        <div class="parallex-item-text text3">SECTION05</div>
+        <div class="parallex-item-text text4">SECTION05</div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.1/ScrollToPlugin.min.js"></script>
+    <script>
+      // 01: 이미지 애니메이션
+      const ani01 = gsap.timeline();
+      ani01
+        .to("#section01 .parallex-item-img", {
+          rotation: 720,
+          scale: 0,
+          borderRadius: 200,
+        })
+        .to("#section01 .parallex-item-img", {
+          rotation: 0,
+          scale: 1,
+          borderRadius: 20,
+        });
+
+      ScrollTrigger.create({
+        animation: ani01, // 미리 정의된 GSAP 애니메이션 객체
+        trigger: "#section01", // 스크롤 트리거를 활성화 할 요소의 선택자
+        start: "top top", // 스크롤 트리거가 시작되는 지점을 설정
+        end: "+=2000", // 스크롤 트리거가 끝나는 지점을 설정(2000픽셀 길이 동안 지속됨)
+        scrub: true, // 스크롤 동기화
+        pin: true, // 스크롤 트리거가 활성화되는 동안 요소를 고정
+        anticipatePin: 1, // 값이 높을수록 더 부드러운 핀 동작을 제공(1은 약간지연)
+        markers: true,
+      });
+
+      // 02: 이미지 순차적으로 나오기
+      const ani02 = gsap.timeline();
+      ani02
+        .from("#section02 .img1", {
+          y: -100,
+          autoAlpha: 0,
+          borderRadius: 200,
+        })
+        .from("#section02 .img2", {
+          y: 100,
+          autoAlpha: 0,
+          borderRadius: 200,
+        })
+        .from("#section02 .img3", {
+          y: -100,
+          autoAlpha: 0,
+          borderRadius: 200,
+        });
+
+      ScrollTrigger.create({
+        animation: ani02, // 미리 정의된 GSAP 애니메이션 객체
+        trigger: "#section02", // 스크롤 트리거를 활성화 할 요소의 선택자
+        start: "top top", // 스크롤 트리거가 시작되는 지점을 설정
+        end: "+=2000", // 스크롤 트리거가 끝나는 지점을 설정(2000픽셀 길이 동안 지속됨)
+        scrub: true, // 스크롤 동기화
+        pin: true, // 스크롤 트리거가 활성화되는 동안 요소를 고정
+        anticipatePin: 1, // 값이 높을수록 더 부드러운 핀 동작을 제공(1은 약간지연)
+        markers: true,
+      });
+
+      // 03: 이미지 랜덤으로 나오기
+      const ani03 = gsap.timeline();
+      ani03.from("#section03 .parallex-item-img", {
+        y: -100,
+        autoAlpha: 0,
+        borderRadius: 200,
+        ease: "back.out(10)", // 애니메이션의 가속과 감속 효과, 약간 뒤로 물러났다가 제 위치로 돌아오는 효과
+        // 애니메이션이 여러 요소에 순차적으로 적용될 때의 지연효과 설정
+        stagger: {
+          amount: 3, // 전체 애니메이션이 3초 동안 순차적으로 적용
+          from: "random", // 요소들이 랜덤한 순서로 애니메이션 시작
+        },
+      });
+
+      ScrollTrigger.create({
+        animation: ani03, // 미리 정의된 GSAP 애니메이션 객체
+        trigger: "#section03", // 스크롤 트리거를 활성화 할 요소의 선택자
+        start: "top top", // 스크롤 트리거가 시작되는 지점을 설정
+        end: "+=2000", // 스크롤 트리거가 끝나는 지점을 설정(2000픽셀 길이 동안 지속됨)
+        scrub: true, // 스크롤 동기화
+        pin: true, // 스크롤 트리거가 활성화되는 동안 요소를 고정
+        anticipatePin: 1, // 값이 높을수록 더 부드러운 핀 동작을 제공(1은 약간지연)
+        markers: true,
+      });
+
+      // 04: 이미지 축소하기
+      const ani04 = gsap.timeline();
+      ani04.from("#section04 .parallex-item-img", {
+        autoAlpha: 0,
+        scale: 5,
+        width: "100vw",
+        height: "100vh",
+      });
+
+      ScrollTrigger.create({
+        animation: ani04, // 미리 정의된 GSAP 애니메이션 객체
+        trigger: "#section04", // 스크롤 트리거를 활성화 할 요소의 선택자
+        start: "top top", // 스크롤 트리거가 시작되는 지점을 설정
+        end: "+=3000", // 스크롤 트리거가 끝나는 지점을 설정(2000픽셀 길이 동안 지속됨)
+        scrub: true, // 스크롤 동기화
+        pin: true, // 스크롤 트리거가 활성화되는 동안 요소를 고정
+        anticipatePin: 1, // 값이 높을수록 더 부드러운 핀 동작을 제공(1은 약간지연)
+        markers: true,
+      });
+
+      // 05. 텍스트 애니메이션
+      const ani05 = gsap.timeline();
+      ani05
+      .to(
+        "#section05 .text1", 
+        {xPercent:300}, 
+        "text" // 레이블 정의, 여러 애니메이션이 동일한 타임라인에서 정확히 같은 시점에 시작
+    )
+
+      .to("#section05 .text2", {xPercent:-300}, "text")
+      .to("#section05 .text3", {xPercent:300}, "text")
+      .to("#section05 .text4", {xPercent:-300}, "text")
+
+      ScrollTrigger.create({
+        animation: ani05, // 미리 정의된 GSAP 애니메이션 객체
+        trigger: "#section05", // 스크롤 트리거를 활성화 할 요소의 선택자
+        start: "top top", // 스크롤 트리거가 시작되는 지점을 설정
+        end: "+=3000", // 스크롤 트리거가 끝나는 지점을 설정(2000픽셀 길이 동안 지속됨)
+        scrub: true, // 스크롤 동기화
+        pin: true, // 스크롤 트리거가 활성화되는 동안 요소를 고정
+        anticipatePin: 1, // 값이 높을수록 더 부드러운 핀 동작을 제공(1은 약간지연)
+        markers: true,
+      });
+    </script>
+  </body>
+</html>

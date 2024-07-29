@@ -1,0 +1,22 @@
+@charset "utf-8";
+
+#section01 .parallex-item-img {
+  background-image: url("http://picsum.photos/300/300?random=1");
+}
+#section02 .parallex-item-img {
+  background-image: url("http://picsum.photos/300/300?random=2");
+}
+#section03 .parallex-item-img {
+  background-image: url("http://picsum.photos/300/300?random=3");
+}
+#section04 .parallex-item-img {
+  background-image: url("http://picsum.photos/1200/1200?random=4");
+}
+#section05 {
+  flex-direction: column;
+}
+
+#section05 .parallex-item-text {
+  font-size: 5vw;
+  font-weight: bold;
+}
