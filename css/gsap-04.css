@@ -1,0 +1,89 @@
+@charset "utf-8";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+  color: #fff;
+}
+body {
+  color: #fff;
+  background-color: #111;
+}
+
+.wrap {
+  width: 1600px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+.item {
+  position: relative;
+  width: 1000px;
+  max-width: 70vw;
+  margin: 30vw auto;
+  text-align: left;
+  padding-top: 15vw;
+}
+.item:nth-child(even) {
+  margin-left: 0;
+  text-align: right;
+}
+.item-num {
+  position: absolute;
+  font-size: 35vw;
+  left: -5vw;
+  top: -13vw;
+  opacity: 0.07;
+}
+.item:nth-child(even) .item-num {
+  left: auto;
+  right: -5vw;
+}
+.item-title {
+  padding-bottom: 5px;
+}
+.img-wrap {
+  width: 100%;
+  padding-bottom: 56%;
+  background-color: #000;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.item-img {
+  position: absolute;
+  left: -5%;
+  top: -5%;
+  width: 110%;
+  height: 110%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: saturate(0%);
+  transition: all 1s;
+}
+.item-img:hover {
+  filter: saturate(100%);
+  transform: scale(1.03);
+}
+#section01 .item-img {
+  background-image: url("https://picsum.photos/1200/1000?random=1");
+}
+#section02 .item-img {
+  background-image: url("https://picsum.photos/1200/1000?random=2");
+}
+.item-desc {
+  position: relative;
+  font-size: 4vw;
+  line-height: 1.4;
+  margin-top: -5vw;
+  margin-left: -4vw;
+  z-index: 100;
+  word-break: keep-all;
+}
+.item:nth-child(even) .item-desc {
+  margin-left: auto;
+  margin-right: -4vw;
+}
