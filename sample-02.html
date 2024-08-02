@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스크롤 요소 고정</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      .header {
+        background-color: #f4f4f4;
+        padding: 10px;
+        text-align: center;
+        background-color: #fff;
+      }
+
+      .navbar {
+        background-color: #333;
+        overflow: hidden;
+        position: relative; /* 기본 위치 */
+        width: 100%;
+        transition: transform 0.5s ease-in-out; /* 슬라이드 효과를 위한 트랜지션 추가 */
+      }
+
+      .navbar ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+      }
+
+      .navbar li {
+        margin: 0 10px;
+      }
+
+      .navbar li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+
+      .navbar li a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+
+      .sticky {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        opacity: 0.9;
+      }
+
+      .slide-up {
+        transform: translateY(-100%); /* 요소를 위로 슬라이드 */
+      }
+
+      .content {
+        padding: 15px;
+      }
+
+      .section {
+        background-color: rgba(138, 231, 244, 0.5);
+        width: 100%;
+        height: 500px;
+        margin: 50px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>My Website</h1>
+    </div>
+    <nav class="navbar">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="content">
+      <!-- 페이지의 다른 내용 -->
+      <div class="section"></div>
+      <div class="section"></div>
+      <div class="section"></div>
+      <div class="section"></div>
+      <div class="section"></div>
+    </div>
+    <script>
+      window.onscroll = function () {
+        makeSticky();
+      };
+
+      const navbar = document.querySelector(".navbar");
+      const sticky = navbar.offsetTop; // 요소의 초기 위치를 기억
+      console.log("navbar.offsetTop", sticky);
+      let isSticky = false; // 고정 상태를 추적하기 위한 변수
+      let slideTimeout; // 슬라이드업 타이머
+      let isMouseOverNavbar = false; // 마우스가 네비게이션 바 위에 있는지 여부
+      let lastMouseMoveTime = 0; // 마지막 mousemove 이벤트 시간
+
+      function makeSticky() {
+        if (window.pageYOffset >= sticky && !isSticky) {
+          // 네비게이션 바가 처음 고정될 때
+          console.log("window.pageYOffset", window.pageYOffset);
+          console.log("isSticky", isSticky);
+          navbar.classList.add("sticky");
+          isSticky = true; // 상태를 고정됨으로 설정
+          console.log("isSticky", isSticky);
+
+          // 2초 후 슬라이드업 클래스 추가
+          slideTimeout = setTimeout(() => {
+            if (!isMouseOverNavbar) {
+              // 마우스가 네비게이션 바에 없을 때만 슬라이드 업
+              navbar.classList.add("slide-up");
+              console.log("네비게이션 슬라이드업");
+              console.log("isMouseOverNavbar", isMouseOverNavbar);
+            }
+          }, 2000);
+        } else if (window.pageYOffset < sticky && isSticky) {
+          // 네비게이션 바가 고정되지 않을 때
+          navbar.classList.remove("sticky", "slide-up"); // 슬라이드업 상태도 제거
+          isSticky = false; // 상태를 고정되지 않음으로 설정
+          console.log("isSticky", isSticky);
+
+          // 슬라이드업 타이머 취소
+          clearTimeout(slideTimeout);
+        }
+      }
+
+      // 마우스가 상단 근처에 있을 때 네비게이션 바 슬라이드다운 (throttle 적용)
+      window.addEventListener("mousemove", function (event) {
+        const now = Date.now(); // 현재 시간을 밀리초 단위로 반환하는 함수
+
+        if (now - lastMouseMoveTime < 100) {
+          // 100ms 간격으로만 처리
+          return;
+        }
+
+        lastMouseMoveTime = now;
+
+        if (event.clientY < 50 && isSticky && !isMouseOverNavbar) {
+          // 마우스가 상단 50px 이내에 있을 때
+          navbar.classList.remove("slide-up");
+          console.log("마우스가 상단에 위치하여 슬라이드다운");
+        }
+      });
+
+      // 마우스가 네비게이션 바에 들어왔을 때
+      navbar.addEventListener("mouseenter", function () {
+        isMouseOverNavbar = true;
+        if (isSticky) {
+          console.log("isMouseOverNavbar", isMouseOverNavbar);
+          navbar.classList.remove("slide-up");
+          console.log("마우스가 네비게이션 바에 위치하여 슬라이드다운");
+        }
+      });
+
+      // 마우스가 네비게이션 바를 벗어났을 때
+      navbar.addEventListener("mouseleave", function () {
+        isMouseOverNavbar = false;
+        if (isSticky) {
+          console.log("isMouseOverNavbar", isMouseOverNavbar);
+          navbar.classList.add("slide-up");
+          console.log("마우스가 네비게이션 바를 벗어나 슬라이드업");
+        }
+      });
+    </script>
+  </body>
+</html>
